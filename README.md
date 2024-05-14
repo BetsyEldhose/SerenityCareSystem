@@ -17,3 +17,5 @@ Staff module-Manage medicine stock.
 Dietician module-Provide diet plans to patients.
 
 User module-Can purchase medicine from shopping cart,search for hospitals,get diet plans from dieticians and can select caretakers or babysitters.
+# Screenshots
+"C:\Users\Betsy eldhose\Downloads\login.jpeg"
