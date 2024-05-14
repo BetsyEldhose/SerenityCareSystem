@@ -19,4 +19,7 @@ Dietician module-Provide diet plans to patients.
 User module-Can purchase medicine from shopping cart,search for hospitals,get diet plans from dieticians and can select caretakers or babysitters.
 # Screenshots
 ![login](https://github.com/BetsyEldhose/SerenityCareSystem/assets/169824216/c7798eeb-5fee-4cc2-932b-c836194bed93)
-
+![admin caredata](https://github.com/BetsyEldhose/SerenityCareSystem/assets/169824216/f824899b-2c20-4e6b-8605-e066109e25a2)
+![userhosp](https://github.com/BetsyEldhose/SerenityCareSystem/assets/169824216/95f2faa5-cf1d-46f9-ab70-52a81a7b0b98)
+![hos data](https://github.com/BetsyEldhose/SerenityCareSystem/assets/169824216/bda72dbd-9b6b-4a9f-8290-a3d627105035)
+![admin hos](https://github.com/BetsyEldhose/SerenityCareSystem/assets/169824216/a10592d0-c7b9-4eb3-bd67-e4ae31f11f0c)
