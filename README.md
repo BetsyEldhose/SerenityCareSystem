@@ -9,3 +9,11 @@ CSS
 Python Flask
 
 Javascript
+# Features
+Admin module-Manage staff,dietician and hospital listand monitor user data.
+
+Staff module-Manage medicine stock.
+
+Dietician module-Provide diet plans to patients.
+
+User module-Can purchase medicine from shopping cart,search for hospitals,get diet plans from dieticians and can select caretakers or babysitters.
