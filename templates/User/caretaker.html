@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="CodePixar">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Healthcare</title>
+
+	<!--
+            CSS
+            ============================================= -->
+	<link rel="stylesheet" href="/static/User/css/linearicons.css">
+	<link rel="stylesheet" href="/static/User/css/owl.carousel.css">
+	<link rel="stylesheet" href="/static/User/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/static/User/css/themify-icons.css">
+	<link rel="stylesheet" href="/static/User/css/nice-select.css">
+	<link rel="stylesheet" href="/static/User/css/nouislider.min.css">
+	<link rel="stylesheet" href="/static/User/css/bootstrap.css">
+	<link rel="stylesheet" href="/static/User/css/main.css">
+
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<style>
+	.select2-container .select2-selection--single{
+    height:34px !important;
+
+}
+.select2-container--default .select2-selection--single{
+         border: 1px solid #ccc !important;
+     border-radius: 0px !important;
+}
+
+	</style>
+
+</head>
+
+<body id="category">
+
+{% include 'User/header.html' %}
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Caretakers List</h1>
+					<nav class="d-flex align-items-center">
+						<a href="">Home<span class="lnr lnr-arrow-right"></span></a>
+						<!-- <a href="#">choose<span class="lnr lnr-arrow-right"></span></a> -->
+						<a href="">Caretaker</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+	<div class="container" >
+		<div class="row">
+		<!--<?php
+        include("../Includes/config.php");
+		// include("../Includes/session.php");
+
+        $place = "SELECT  caretaker.name,caretaker.type
+        FROM caretaker
+        INNER JOIN login  ON login.caretaker_id = caretaker.id WHERE login.id=$Uid";
+        $place_run = mysqli_query($conn, $place);
+
+        if (mysqli_num_rows($place_run) > 0) {
+            while ($row = mysqli_fetch_assoc($place_run)) {
+
+				echo"<h4  style='margin-left:300px;'>Your  caretaker is:{$row['name']}-{$row['type']}</h4>";
+
+			}
+
+		}
+		else {
+echo"No caretaker found";
+
+        }
+        ?>-->
+        {% if caretaker_info %}
+            <div class="col-md-12">
+                <h4 style="margin-left: 300px;">Your caretaker is: {{ caretaker_info.name }} - {{ caretaker_info.type }}</h4>
+            </div>
+            {% else %}
+            <div class="col-md-12">
+                <h4>No caretaker found</h4>
+            </div>
+            {% endif %}
+
+			<!-- <div class="col-xl-9 col-lg-8 col-md-7"> -->
+				<!-- <div class="col-md-12">
+
+				<div class="filter-bar">
+					<label style="color:black;font-size:medium;font-weight:bold;paddin-left:20px;">Choose caretaker:</label>
+					<div class="sorting">
+
+							<select class="form-control select2"  id="type" name="caretaker">
+                            <option id="all" value="all">All</option>
+							<option id="homenurse" value="homenurse">Homenurse</option>
+                            <option id="babysitter" value="babysitter">Babysitter</option>
+							</select>
+
+					</div>
+
+				</div> -->
+				<!-- End Filter Bar -->
+				<!-- Start Best Seller -->
+
+			</div>
+
+		</div>
+	</div>
+	<div class="col-md-8" id="caretakerList">
+	<table class="table datatable" style="margin-left:200px;">
+                                <thead>
+                                    <tr>
+
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <!-- <th>password</th> -->
+                                        <th>Address</th>
+                                        <th>Qualification</th>
+                                        <th> Type</th>
+                                        <th>Zipcode</th>
+                                        <th>choose</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <!--<?php
+    include("../Includes/config.php");
+     $place="SELECT * FROM `caretaker` ";
+     $place_run=mysqli_query($conn,$place);
+
+             if(mysqli_num_rows($place_run))
+             {
+             while ($row=mysqli_fetch_assoc($place_run))
+              {
+                ?>-->                 {% for caretaker_detail in caretaker_details %}
+                                    <tr>
+                                        <td>{{ caretaker_detail[1] }}</td>
+                                        <td>{{ caretaker_detail[2] }}</td>
+
+                                        <td>{{ caretaker_detail[3] }}</td>
+                                        <td>{{ caretaker_detail[4] }}</td>
+                                        <td>{{ caretaker_detail[5] }}</td>
+                                        <td>{{ caretaker_detail[6] }}</td>
+										<td><input type="radio" name="form-control" class="form-control" onclick="handleCheckbox('{{ caretaker_detail[0] }}')"></td>
+										<!-- <td><input type="checkbox" class="form-control" id="choosecaretaker"><td> -->
+
+
+                                    </tr>
+                                    {% endfor %}
+                                   <!-- <?php
+            }
+        } else {
+
+            echo "<tr><td colspan='7'>No records found</td></tr>";
+        }
+        ?>-->
+
+                                </tbody>
+                            </table>
+	</div>
+
+
+
+	<!-- start footer Area -->
+	{% include 'User/footer.html' %}
+	<!-- End footer Area -->
+
+
+
+	<script>
+		function handleCheckbox(id) {
+			console.log(id);// Assuming you want to check if the checkbox is checked
+
+	
+			var data = {
+				
+				rowId: id
+			};
+	
+			// Send AJAX request
+			$.ajax({
+				url: '/caretaker-selection',
+				type: 'POST',
+				data: data,
+				success: function(response) {
+					// Handle success response
+					console.log('Assignment successful:', response);
+					// $(selectElement).closest('tr').hide(); //to decide to hide the row after selecting a dietician
+				},
+				error: function(xhr, status, error) {
+					// Handle error
+					console.error('Error occurred:', error);
+				}
+			});
+		}
+	</script>
+	
+
+	
+
+
+
+
+	<script src="/static/User/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	 crossorigin="anonymous"></script>
+	<script src="/static/User/js/vendor/bootstrap.min.js"></script>
+	<script src="/static/User/js/jquery.ajaxchimp.min.js"></script>
+	<script src="/static/User/js/jquery.nice-select.min.js"></script>
+	<script src="/static/User/js/jquery.sticky.js"></script>
+	<script src="/static/User/js/nouislider.min.js"></script>
+	<script src="/static/User/js/jquery.magnific-popup.min.js"></script>
+	<script src="/static/User/js/owl.carousel.min.js"></script>
+	<!--gmaps Js-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="/static/User/js/gmaps.min.js"></script>
+	<script src="/static/User/js/main.js"></script>
+</body>
+
+</html>

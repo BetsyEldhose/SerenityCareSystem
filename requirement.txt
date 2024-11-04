@@ -1,0 +1,11 @@
+blinker     
+click       
+colorama     
+Flask       
+itsdangerous 
+Jinja2       
+MarkupSafe   
+pip          
+PyMySQL      
+setuptools   
+Werkzeug     

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Initially hide the container */
+        }
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .colspan {
+            text-align: right;
+        }
+        a {
+            display: block;
+            width: 120px;
+            margin: 20px auto;
+            text-align: center;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #45a049;
+        }
+        .gif-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="gif-container">
+        <img src="https://assets.materialup.com/uploads/9ba2d687-d7d3-4361-8aee-7b2a3c074761/preview.gif" alt="Loading...">
+    </div>
+
+    <div class="container">
+        <h1>Purchase Success</h1>
+        <h2>Bill</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Medicine Name</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medicine in purchased_medicines %}
+                    <tr>
+                        <td>{{ medicine.name }}</td>
+                        <td>{{ medicine.rate }}</td>
+                        <td>{{ medicine.quantity }}</td>  <!-- Assuming quantity is not available -->
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2" class="colspan">Total Amount:</td>
+                    <td>{{ total_amount }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/download_bill" download>Download Bill</a>
+    </div>
+    
+    <script>
+        // Show the container after 3 seconds
+        setTimeout(function() {
+            document.querySelector('.gif-container').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+        }, 3000); // 3000 milliseconds = 3 seconds
+    </script>
+</body>
+</html>

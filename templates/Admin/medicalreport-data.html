@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Admin Dashboard</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/static/Admin/assets/img/favicon.png" rel="icon">
+    <link href="/static/Admin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/static/Admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/Admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/Admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/static/Admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="/static/Admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="/static/Admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/static/Admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/static/Admin/assets/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Updated: Mar 17 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .dietician{
+        padding:5px;
+border-radius:10px;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    {% include 'Admin/navbar.html' %}
+    <!-- ======= Sidebar ======= -->
+    {% include 'Admin/sidebar.html' %}
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>User Data</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">Tables</li>
+                    <li class="breadcrumb-item active">Medical reports</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+
+
+                            <!-- Table with stripped rows -->
+                            <table class="table datatable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Report</th>
+            <th>Assign dietician</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!--<?php
+        include("../Includes/config.php");
+        $place = "SELECT medical_report.id, medical_report.report, login.name
+        FROM medical_report
+        INNER JOIN login  ON medical_report.user_id = login.id";
+        $place_run = mysqli_query($conn, $place);
+
+        if (mysqli_num_rows($place_run) > 0) {
+            while ($row = mysqli_fetch_assoc($place_run)) {
+                $rowId=$row['id'];
+
+
+        ?>-->   {% for medical_report in medical_reports %}
+                <tr data-rowid="{{ medical_reports[0] }}">
+                    <td>{{ medical_report[0] }}</td>
+                    <td>{{ medical_report[2] }}</td>
+                    <td>{{ medical_report[1] }}</td>
+                    <td style="display: none;">{{ medical_report[3] }}</td>
+                    <td>
+                        <select class="dietician" onchange="assignDietician(this, '{{ medical_report[0] }}' , '{{ medical_report[3]}}')">
+                           
+                            {% for dietician in dieticians %}
+                                                        <option value="{{ dietician[0] }}">{{ dietician[1]}}</option>
+                                 {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                {% endfor %}
+        <!--<?php
+            }
+        } else {
+            echo "<tr><td colspan='3'>No records found</td></tr>";
+        }
+        ?>-->
+    </tbody>
+</table>
+
+                            <!-- End Table with stripped rows -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+   
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+            <!-- <script>
+    function assignDietician(selectElement) {
+        var selectedValue = selectElement.value;
+
+        console.log("Selected dietician ID:", selectedValue);
+
+    }
+</script> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script>
+    function assignDietician(selectElement, getRowID,Userid) {
+        var selectedValue = selectElement.value;
+    //     var rowId = $(selectElement).closest('tr').data('rowid');
+
+        console.log(Userid);
+    // // Extracting the ID from the tuple
+    // var id = rowId[1]; // Assuming the ID is the first element of the tuple
+    console.log("kkk",getRowID,Userid);
+
+    var data = {
+        selectedValue: selectedValue,
+        rowId: getRowID ,// Use the extracted ID for the rowId
+        Userid:Userid
+    };
+
+        // Send AJAX request
+        $.ajax({
+            url: '/dietician-assign',
+            type: 'POST',
+            data: data,
+            success: function(response) {
+                // Handle success response
+                console.log('Assignment successful:', response);
+
+
+                // $(selectElement).closest('tr').hide(); //to decide to hide the row after selecting a dietician
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error('Error occurred:', error);
+            }
+        });
+    }
+</script>
+
+
+
+
+    <!-- Vendor JS Files -->
+    <script src="/static/Admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="/static/Admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/Admin/assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="/static/Admin/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="/static/Admin/assets/vendor/quill/quill.min.js"></script>
+    <script src="/static/Admin/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="/static/Admin/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="/static/Admin/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/static/Admin/assets/js/main.js"></script>
+
+</body>
+
+</html>

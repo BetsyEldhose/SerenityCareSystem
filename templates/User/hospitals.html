@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png">
+    <!-- Author Meta -->
+    <meta name="author" content="CodePixar">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Healthcare</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/User/css/linearicons.css">
+    <link rel="stylesheet" href="/static/User/css/owl.carousel.css">
+    <link rel="stylesheet" href="/static/User/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/User/css/themify-icons.css">
+    <link rel="stylesheet" href="/static/User/css/nice-select.css">
+    <link rel="stylesheet" href="/static/User/css/nouislider.min.css">
+    <link rel="stylesheet" href="/static/User/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/User/css/main.css">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <style>
+        .lattest-product-area {
+            margin-top: 20px;
+        }
+    
+        .hospital-item {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+    
+        .hospital-item:hover {
+            background-color: #f9f9f9;
+        }
+    
+        .hospital-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+    
+        .hospital-location {
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+    
+</head>
+
+<body id="category">
+
+    <!-- Header -->
+    {% include 'User/header.html' %}
+
+    <!-- Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Hospitals List</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="">Hospitals</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filter-bar">
+                    <label style="color:black;font-size:medium;font-weight:bold;paddin-left:20px;">Choose location:</label>
+                    <div class="sorting">
+                        <select class="form-control select2" id="cityInputs" name="location" onchange="storeLocation(this.value)">
+                            {% for hospital in hospitals %}
+                            <option value="{{ hospital[3] }}" {% if hospital[3] == selected_location %} selected {% endif %}>{{ hospital[3] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <!-- End Filter Bar -->
+                <!-- Hospital List -->
+                <section class="lattest-product-area pb-40 category-list">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="hospitalList" style="margin-top: 20px;">
+                                <!-- Hospital items will be dynamically added here -->
+                            </div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </section>
+                <!-- End Hospital List -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {% include 'User/footer.html' %}
+    <!-- End Footer -->
+
+    <!-- Script -->
+    <script>
+        // Function to fetch hospitals based on location
+        function storeLocation(location) {
+            $.ajax({
+                type: 'POST',
+                url: '/get_hospitals',
+                data: {
+                    location: location || '' // Send an empty string if no location is selected
+                },
+                success: function(data) {
+                    // Clear previous hospital items
+                    $('#hospitalList').empty();
+    
+                    // Append new hospital items
+                    data.forEach(function(hospital) {
+                        var hospitalItem = `
+                            <div class="hospital-item" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin-bottom: 20px; background-color: #fff; transition: background-color 0.3s ease;">
+                                <div class="hospital-name" style="font-size: 20px; font-weight: bold; color: #333; margin-bottom: 10px;">${hospital.name}</div>
+                                <div class="hospital-location" style="font-size: 16px; color: #555;">Location:${hospital.location}</div>
+                                <div class="hospital-address" style="font-size: 16px; color: #555;">Address:${hospital.address}</div>
+                                <div class="hospital-contact" style="font-size: 16px; color: #555;">Phone Number:${hospital.other_info}</div>
+
+                            </div>
+                        `;
+                        $('#hospitalList').append(hospitalItem);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching hospitals:', error);
+                }
+            });
+        }
+    </script>
+    
+    
+    
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

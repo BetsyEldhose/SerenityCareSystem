@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Admin Dashboard</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/Admin/assets/img/favicon.png" rel="icon">
+  <link href="/static/Admin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/Admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/Admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/Admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/Admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/static/Admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/static/Admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/Admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="/static/Admin/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Updated: Mar 17 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+<!--<?php
+include('../Includes/config.php');
+    if(isset($_GET['up_id'])){
+        $u_name="";
+        $u_email="";
+        $u_address="";
+        $u_qualification="";
+        $u_type="";
+        $u_zip="";
+
+
+
+    $id=$_GET['up_id'];
+    $sql="SELECT * from `caretaker` WHERE `id`='$id'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_array($result);
+    if($row){
+
+
+        $u_name=$row['name'];
+        $u_email=$row['email'];
+        $u_address=$row['address'];
+        $u_qualification=$row['qualification'];
+        $u_type=$row['type'];
+        $u_zip=$row['zip'];
+
+
+    }
+
+    }
+
+    ?>-->
+<body>
+
+   <!-- ======= Header ======= -->
+   {% include 'Admin/navbar.html' %}
+  <!-- ======= Sidebar ======= -->
+  {% include 'Admin/sidebar.html' %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Add caretaker</h1>
+      <nav>
+        
+     <a href="caretaker-data"> <button class="btn btn-primary">View caretaker data</button></a>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Add Babbysitter/Homenurse</h5>
+
+              <!-- Floating Labels Form -->
+              <form class="row g-3" method="post" action="{{ url_for('add_caretaker') }}">
+              <input type="hidden" name="hid" value="{{ caretaker[0] if caretaker else None }}" >
+                <div class="col-md-12">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingName" name="username" placeholder="Your Name"  required value="{{ caretaker[1] if caretaker else '' }}">
+                    <label for="floatingName">Your Name</label>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-floating">
+                    <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="Your Email"  required value="{{ caretaker[2] if caretaker else '' }}">
+                    <label for="floatingEmail">Your Email</label>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="Address" id="floatingTextarea" name="address" style="height: 100px;" required value="">{{ caretaker[3] if caretaker else '' }}</textarea>
+                    <label for="floatingTextarea">Address</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="qualification" id="floatingTextarea" name="qualification" style="height: 100px; "  required value="">{{ caretaker[4] if caretaker else '' }}</textarea>
+                    <label for="floatingTextarea">Basic Qualification</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <select class="form-select" id="floatingSelect" value="{{ caretaker[5] if caretaker else '' }}" name="type" aria-label="State">
+
+                      <option  value="Homenurse">Home nurse</option>
+                      <option  value="Babysitter">Babysitter</option>
+                    </select>
+                    <label for="floatingSelect">Caretaker</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" name="contact" id="floatingnumber" placeholder="contact" required value="{{ caretaker[6] if caretaker else '' }}">
+                    <label for="floatingnumber">contact number</label>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button type="submit" name="signin" class="btn btn-primary">Submit</button>
+                  <!-- <button type="reset" class="btn btn-secondary">Reset</button> -->
+                </div>
+              </form><!-- End floating Labels Form -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/static/Admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/static/Admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/Admin/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="/static/Admin/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/static/Admin/assets/vendor/quill/quill.min.js"></script>
+  <script src="/static/Admin/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/static/Admin/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/static/Admin/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/Admin/assets/js/main.js"></script>
+
+</body>
+
+</html>
